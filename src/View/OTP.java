@@ -5,17 +5,25 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Roshan Withanage
  */
 public class OTP extends javax.swing.JFrame {
 
+    private String otp;
+
     /**
      * Creates new form OTP
      */
-    public OTP() {
+    public OTP(String otp) {
+        this.otp = otp;
         initComponents();
+    }
+
+    private OTP() {
     }
 
     /**
@@ -29,7 +37,7 @@ public class OTP extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        otp_value = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -43,16 +51,21 @@ public class OTP extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Please Enter OTP");
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setToolTipText("OTP");
+        otp_value.setBackground(new java.awt.Color(255, 255, 255));
+        otp_value.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        otp_value.setForeground(new java.awt.Color(0, 0, 0));
+        otp_value.setToolTipText("OTP");
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("OTP has been sent to your email. Please check your email");
 
         jButton1.setText("Submit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -62,7 +75,7 @@ public class OTP extends javax.swing.JFrame {
                 .addGap(84, 84, 84)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
+                    .addComponent(otp_value)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(108, Short.MAX_VALUE))
@@ -75,7 +88,7 @@ public class OTP extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(otp_value, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(100, Short.MAX_VALUE))
@@ -93,7 +106,18 @@ public class OTP extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (otp.equals(otp_value.getText())) {
+            PassCode obj = new PassCode();
+            obj.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "OTP Code Invalid");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,6 +159,6 @@ public class OTP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField otp_value;
     // End of variables declaration//GEN-END:variables
 }

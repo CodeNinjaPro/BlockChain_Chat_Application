@@ -536,7 +536,7 @@ public class Home extends javax.swing.JFrame {
             AES aes = AES.getInstance();
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getSender_id() == LoginModel.getInstance().getUser_id()) {
-                    aes.setKey(list.get(i).getTimestamp());
+                    aes.setKey(list.get(i).getTimestamp()+"Krowc4");
                     System.out.println(list.get(i).getContent());
                     String data = aes.decrypt(list.get(i).getContent());
                     System.out.println(data);
@@ -576,7 +576,7 @@ public class Home extends javax.swing.JFrame {
             } else {
 
                 AES aes = AES.getInstance();
-                aes.setKey(Instant.now().getEpochSecond() + "");
+                aes.setKey(Instant.now().getEpochSecond() + "Krowc4");
 
                 Msg data = null;
                 try {

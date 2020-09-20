@@ -6,7 +6,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -46,18 +46,18 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jButton5" min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" pref="68" max="-2" attributes="0"/>
+                      <Component id="b1" min="-2" pref="68" max="-2" attributes="0"/>
+                      <Component id="b4" min="-2" pref="68" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="97" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton1" min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="68" max="-2" attributes="0"/>
+                      <Component id="b2" min="-2" pref="68" max="-2" attributes="0"/>
+                      <Component id="b5" min="-2" pref="68" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="95" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton6" alignment="1" min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="1" min="-2" pref="68" max="-2" attributes="0"/>
+                      <Component id="b3" alignment="1" min="-2" pref="68" max="-2" attributes="0"/>
+                      <Component id="b6" alignment="1" min="-2" pref="68" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
               </Group>
@@ -71,15 +71,15 @@
                   <Component id="jLabel1" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton5" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="jButton6" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                      <Component id="b1" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                      <Component id="b2" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                      <Component id="b3" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton4" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                      <Component id="b4" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                      <Component id="b5" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                      <Component id="b6" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="68" max="32767" attributes="0"/>
               </Group>
@@ -99,35 +99,53 @@
             <Property name="text" type="java.lang.String" value="PASSWORD"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="b2">
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="b2ActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="b6">
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="b6ActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="b5">
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="b5ActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="b4">
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="b4ActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="b1">
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="b1ActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton6">
+        <Component class="javax.swing.JButton" name="b3">
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="b3ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

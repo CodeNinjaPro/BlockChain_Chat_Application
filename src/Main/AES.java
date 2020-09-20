@@ -33,7 +33,7 @@ public class AES {
 
     public void setKey(String key) {
         //should have 16 bit key
-        keyValue = "lv39eptlvuhaqqsr".getBytes();
+        keyValue = key.getBytes();
     }
 
     public String encrypt(String data) throws Exception {

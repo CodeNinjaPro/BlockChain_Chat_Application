@@ -30,7 +30,7 @@ public class Pinpon {
         return obj;
     }
 
-    public String getOTP(long timestamp) throws NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+    public String getOTP(long timestamp) throws NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, Exception {
 
         //timestamp converted to hexa value
         String hex = Long.toHexString(timestamp);
@@ -82,16 +82,14 @@ public class Pinpon {
         String forth_rotated_value = input.substring(6, 8) + toBinary((xorDecimal << 4) | (xorDecimal >> (32 - 4)));
 
         String all = first_rotated_value + second_rotated_value + third_rotated_value + forth_rotated_value;
+        
+        AES aes = AES.getInstance();
+        aes.setKey("lv39eptlvuhaqqsr");
+        
+        //decimal converted to Ciper code - Final OTP
+        return aes.encrypt(all.substring(2, 14));
 
-//        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-//        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-//        buffer.putLong(Long.parseLong(all, 2));
-//
-//        int offset = 10;
-//        int length = 24;
-//        byte[] cipherText = cipher.doFinal(buffer.putLong(Long.parseLong(all, 2)).array(), offset, length);
-
-        return Long.parseLong(all, 2)+"";
+//        return Long.parseLong(all, 2)+"";
     }
 
     public String toBinary(int n) {

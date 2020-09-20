@@ -5,17 +5,66 @@
  */
 package View;
 
+import Model.LoginModel;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Roshan Withanage
  */
 public class PassCode extends javax.swing.JFrame {
 
+    private List<Integer> password = new ArrayList<>();
+
+    private String passCode = "";
+    private String userPassCode = "";
+
     /**
      * Creates new form PassCode
      */
     public PassCode() {
         initComponents();
+        loadPassword();
+        setpasswordtobtn();
+    }
+
+    private void loadPassword() {
+
+        userPassCode = LoginModel.getInstance().getPassword();
+        char arr[] = userPassCode.toCharArray();
+        for (int i = 0; i < 6; i++) {
+            password.add(Integer.parseInt(arr[i] + ""));
+        }
+
+    }
+
+    private void setpasswordtobtn() {
+
+        b1.setText(password.remove(ThreadLocalRandom.current().nextInt(1, 5 + 1)) + "");
+        b2.setText(password.remove(ThreadLocalRandom.current().nextInt(1, 4 + 1)) + "");
+        b3.setText(password.remove(ThreadLocalRandom.current().nextInt(1, 3 + 1)) + "");
+        b4.setText(password.remove(ThreadLocalRandom.current().nextInt(1, 2 + 1)) + "");
+        b5.setText(password.remove(ThreadLocalRandom.current().nextInt(1, 1 + 1)) + "");
+        b6.setText(password.get(0) + "");
+
+    }
+
+    private void passcodeClick(String num) throws Exception {
+        passCode += num;
+        if (passCode.length() == 6) {
+            if (passCode.equals(userPassCode)) {
+                Home obj = new Home();
+                obj.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Passcode Invalid!!!");
+            }
+        }
     }
 
     /**
@@ -29,12 +78,12 @@ public class PassCode extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        b2 = new javax.swing.JButton();
+        b6 = new javax.swing.JButton();
+        b5 = new javax.swing.JButton();
+        b4 = new javax.swing.JButton();
+        b1 = new javax.swing.JButton();
+        b3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,17 +94,47 @@ public class PassCode extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PASSWORD");
 
-        jButton1.setText("0");
+        b2.setText("0");
+        b2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b2ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("0");
+        b6.setText("0");
+        b6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b6ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("0");
+        b5.setText("0");
+        b5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b5ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("0");
+        b4.setText("0");
+        b4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b4ActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("0");
+        b1.setText("0");
+        b1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b1ActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("0");
+        b3.setText("0");
+        b3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,16 +143,16 @@ public class PassCode extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(b3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -84,14 +163,14 @@ public class PassCode extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(b4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b5, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
 
@@ -107,7 +186,62 @@ public class PassCode extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed
+        b1.setEnabled(false);
+        try {
+            passcodeClick(b1.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(PassCode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_b1ActionPerformed
+
+    private void b2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b2ActionPerformed
+        b2.setEnabled(false);
+        try {
+            passcodeClick(b2.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(PassCode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_b2ActionPerformed
+
+    private void b3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b3ActionPerformed
+        b3.setEnabled(false);
+        try {
+            passcodeClick(b3.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(PassCode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_b3ActionPerformed
+
+    private void b4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b4ActionPerformed
+        b4.setEnabled(false);
+        try {
+            passcodeClick(b4.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(PassCode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_b4ActionPerformed
+
+    private void b5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b5ActionPerformed
+        b5.setEnabled(false);
+        try {
+            passcodeClick(b5.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(PassCode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_b5ActionPerformed
+
+    private void b6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b6ActionPerformed
+        b6.setEnabled(false);
+        try {
+            passcodeClick(b6.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(PassCode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_b6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,12 +279,12 @@ public class PassCode extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton b1;
+    private javax.swing.JButton b2;
+    private javax.swing.JButton b3;
+    private javax.swing.JButton b4;
+    private javax.swing.JButton b5;
+    private javax.swing.JButton b6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

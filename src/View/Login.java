@@ -6,8 +6,13 @@
 package View;
 
 import Controller.LoginController;
+import Email.JavaEmail;
+import Main.Pinpon;
+import Model.LoginModel;
+import java.time.Instant;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 
 /**
@@ -117,10 +122,27 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             if (LoginController.getInstance().Login(username.getText())) {
-                Home home = new Home();
-                home.setVisible(true);
+
+                Pinpon pinpon = Pinpon.getInstance();
+                String otp_value = pinpon.getOTP(Instant.now().getEpochSecond());
+
+                JavaEmail mail = JavaEmail.getInstance();
+//                Email violation
+                try {
+
+                    String sendmail[] = {LoginModel.getInstance().getEmail()};
+                    String mailData = "Your OTP code is : " + otp_value;
+                    mail.executeEmail(sendmail, "OTP Code", mailData);
+                } catch (MessagingException ex) {
+                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                JOptionPane.showMessageDialog(null, "Email has been sent");
+
+                OTP otp = new OTP(otp_value);
+                otp.setVisible(true);
                 this.dispose();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Username not valid");
             }
 
