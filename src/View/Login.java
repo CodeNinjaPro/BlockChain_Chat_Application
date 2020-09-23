@@ -126,22 +126,25 @@ public class Login extends javax.swing.JFrame {
                 Pinpon pinpon = Pinpon.getInstance();
                 String otp_value = pinpon.getOTP(Instant.now().getEpochSecond());
 
-                JavaEmail mail = JavaEmail.getInstance();
-//                Email violation
-                try {
+//                JavaEmail mail = JavaEmail.getInstance();
+////                Email violation
+//                try {
+//
+//                    String sendmail[] = {LoginModel.getInstance().getEmail()};
+//                    String mailData = "Your OTP code is : " + otp_value;
+//                    mail.executeEmail(sendmail, "OTP Code", mailData);
+//                } catch (MessagingException ex) {
+//                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+//                }
 
-                    String sendmail[] = {LoginModel.getInstance().getEmail()};
-                    String mailData = "Your OTP code is : " + otp_value;
-                    mail.executeEmail(sendmail, "OTP Code", mailData);
-                } catch (MessagingException ex) {
-                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                JOptionPane.showMessageDialog(null, "Email has been sent");
+//
+//                OTP otp = new OTP(otp_value);
+//                otp.setVisible(true);
+//                this.dispose();
 
-                JOptionPane.showMessageDialog(null, "Email has been sent");
-
-                OTP otp = new OTP(otp_value);
-                otp.setVisible(true);
-                this.dispose();
+                    Home obj = new Home();
+                    obj.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Username not valid");
             }

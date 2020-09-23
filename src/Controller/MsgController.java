@@ -25,7 +25,7 @@ public class MsgController {
         con.aud("INSERT INTO msg(hash,previousHash,timeStamp,sender_id,recever_id,content) values ('" + data.getHash() + "','" + data.getPreviousHash() + "','" + data.getTimeStamp() + "','" + data.getSender_id() + "','" + data.getRecever_id() + "','" + data.getContent() + "') ");
     }
 
-    public void Update(int id ,String data) throws Exception {
+    public void Update(int id, String data) throws Exception {
         con.getConnection();
         con.aud("UPDATE msg SET content  = '" + data + "' WHERE id = '" + id + "'");
     }
@@ -109,6 +109,18 @@ public class MsgController {
 
         return obj;
 
+    }
+
+    public String getTimeStamp(int id) throws Exception {
+        String result = "";
+
+        con.getConnection();
+        ResultSet rset = con.srh("SELECT timeStamp FROM msg WHERE id = '"+id+"'");
+        if (rset.next()) {
+            result = rset.getString(1);
+        }
+
+        return result;
     }
 
 }

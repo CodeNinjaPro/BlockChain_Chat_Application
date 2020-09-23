@@ -36,7 +36,7 @@ public class DRL {
             drl += matcher.group() + " ";
             return true;
         }
-        Pattern NICPattern = Pattern.compile(DATA);
+        Pattern NICPattern = Pattern.compile(NIC);
         Matcher NICMatcher = NICPattern.matcher(msg);
         while (NICMatcher.find()) {
             drl += NICMatcher.group() + " ";

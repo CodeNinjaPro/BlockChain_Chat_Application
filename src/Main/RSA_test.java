@@ -54,6 +54,8 @@ public class RSA_test {
         } catch (Exception e) {
             System.out.println(e);
         }
+        
+        System.out.println(PRIVATE_KEY_FILE);
 
     }
 

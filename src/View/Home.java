@@ -12,6 +12,7 @@ import Email.JavaEmail;
 import Main.AES;
 import Main.DRL;
 import Main.Policy;
+import Main.RSA;
 import Model.LoginModel;
 import Model.Msg;
 import Model.User;
@@ -135,6 +136,48 @@ public class Home extends javax.swing.JFrame {
             v.add(obj.getContent());
             but_dt.addRow(v);
 
+        }
+
+    }
+
+    void loadMessage(int id) {
+
+        try {
+            List<Msg> list = MsgController.getInstance().Search(id, LoginModel.getInstance().getUser_id());
+
+            jTable1.setRowHeight(15);
+            DefaultTableModel jtable = (DefaultTableModel) this.jTable1.getModel();
+            jtable.setRowCount(0);
+
+            AES aes = AES.getInstance();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getSender_id() == LoginModel.getInstance().getUser_id()) {
+                    aes.setKey(list.get(i).getTimeStamp() + "Krowc4");
+                    System.out.println(list.get(i).getContent());
+                    String data = aes.decrypt(list.get(i).getContent());
+                    System.out.println(data);
+                    textarea.append("Me : " + data);
+
+                    Vector v = new Vector();
+                    v.add(list.get(i).getId());
+                    v.add("Me : ");
+                    v.add(data);
+                    jtable.addRow(v);
+                } else {
+                    aes.setKey(list.get(i).getTimeStamp() + "Krowc4");
+                    String data = aes.decrypt(list.get(i).getContent());
+                    textarea.append(username.getText() + " : " + data);
+                    Vector v = new Vector();
+                    v.add(list.get(i).getId());
+                    v.add(username.getText());
+                    v.add(data);
+                    jtable.addRow(v);
+
+                }
+                textarea.append("\n");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -391,17 +434,14 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(message_id, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                            .addComponent(jLabel3))
-                        .addComponent(user_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
+                    .addComponent(user_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -410,8 +450,8 @@ public class Home extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(send, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton6)
-                            .addComponent(jButton1))
-                        .addGap(12, 12, 12))))
+                            .addComponent(jButton1))))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton6});
@@ -459,6 +499,11 @@ public class Home extends javax.swing.JFrame {
                 "User ID", "Full Name", "User Type", "Email", "Username", "Password", "Public Key", "Private Key"
             }
         ));
+        userTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userTableMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(userTable);
 
         admin_full_name.setBackground(new java.awt.Color(255, 255, 255));
@@ -497,14 +542,29 @@ public class Home extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(102, 102, 255));
         jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Save");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(102, 102, 255));
         jButton4.setForeground(new java.awt.Color(0, 0, 0));
         jButton4.setText("Update");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(102, 102, 255));
         jButton5.setForeground(new java.awt.Color(0, 0, 0));
         jButton5.setText("Delete");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         user_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin" }));
 
@@ -640,39 +700,9 @@ public class Home extends javax.swing.JFrame {
         username.setText(dtm.getValueAt(sr, 1).toString());
 
         try {
-            List<Msg> list = MsgController.getInstance().Search((int) dtm.getValueAt(sr, 0), LoginModel.getInstance().getUser_id());
 
-            jTable1.setRowHeight(15);
-            DefaultTableModel jtable = (DefaultTableModel) this.jTable1.getModel();
-            jtable.setRowCount(0);
+            loadMessage((int) dtm.getValueAt(sr, 0));
 
-            AES aes = AES.getInstance();
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getSender_id() == LoginModel.getInstance().getUser_id()) {
-                    aes.setKey(list.get(i).getTimeStamp() + "Krowc4");
-                    System.out.println(list.get(i).getContent());
-                    String data = aes.decrypt(list.get(i).getContent());
-                    System.out.println(data);
-                    textarea.append("Me : " + data);
-
-                    Vector v = new Vector();
-                    v.add(list.get(i).getId());
-                    v.add("Me : ");
-                    v.add(data);
-                    jtable.addRow(v);
-                } else {
-                    aes.setKey(list.get(i).getTimeStamp() + "Krowc4");
-                    String data = aes.decrypt(list.get(i).getContent());
-                    textarea.append(username.getText() + " : " + data);
-                    Vector v = new Vector();
-                    v.add(list.get(i).getId());
-                    v.add(username.getText());
-                    v.add(data);
-                    jtable.addRow(v);
-
-                }
-                textarea.append("\n");
-            }
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -734,6 +764,7 @@ public class Home extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                loadMessage(Integer.parseInt(user_id.getText()));
             }
 
         }
@@ -773,14 +804,86 @@ public class Home extends javax.swing.JFrame {
         } else {
             try {
                 AES aes = AES.getInstance();
-                aes.setKey(Instant.now().getEpochSecond() + "Krowc4");
+                aes.setKey(MsgController.getInstance().getTimeStamp(Integer.parseInt(message_id.getText())) + "Krowc4");
 
                 MsgController.getInstance().Update(Integer.parseInt(message_id.getText()), aes.encrypt("This message was deleted by : " + LoginModel.getInstance().getUser_fullname()));
             } catch (Exception ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
+            loadMessage(Integer.parseInt(user_id.getText()));
+
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        User user = new User();
+        user.setUser_id(Integer.parseInt(admin_user_id.getText()));
+        user.setUser_fullname(admin_full_name.getText());
+        user.setUsertype(user_type.getSelectedItem().toString());
+        user.setUsername(username.getText());
+        user.setPassword(password.getText());
+        user.setEmail(email.getText());
+
+        AES aes = AES.getInstance();
+        aes.setKey(Instant.now().getEpochSecond() + "Krowc4");
+        
+        try {
+            user.setPublic_key(aes.encrypt(admin_full_name.getText()));
+            user.setPrivate_key(aes.encrypt(admin_full_name.getText()+"Krowc4"));
+            
+            UserController.getInstance().Save(user);
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        User user = new User();
+        user.setUser_id(Integer.parseInt(admin_user_id.getText()));
+        user.setUser_fullname(admin_full_name.getText());
+        user.setUsertype(user_type.getSelectedItem().toString());
+        user.setUsername(username.getText());
+        user.setPassword(password.getText());
+        user.setEmail(email.getText());
+
+        AES aes = AES.getInstance();
+        aes.setKey(Instant.now().getEpochSecond() + "Krowc4");
+        
+        try {
+            user.setPublic_key(aes.encrypt(admin_full_name.getText()));
+            user.setPrivate_key(aes.encrypt(admin_full_name.getText()+"Krowc4"));
+            
+            UserController.getInstance().Update(user);
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        User user = new User();
+        user.setUser_id(Integer.parseInt(admin_user_id.getText()));
+        
+        try {
+            
+            UserController.getInstance().Delete(user);
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void userTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTableMouseClicked
+        DefaultTableModel dtm = (DefaultTableModel) this.userTable.getModel();
+        int sr = userTable.getSelectedRow();
+        admin_user_id.setText(dtm.getValueAt(sr, 0).toString());
+        admin_full_name.setText(dtm.getValueAt(sr, 1).toString());
+        user_type.setSelectedItem(dtm.getValueAt(sr, 2).toString());
+        email.setText(dtm.getValueAt(sr, 3).toString());
+        admin_username.setText(dtm.getValueAt(sr, 4).toString());
+        password.setText(dtm.getValueAt(sr, 5).toString());
+    }//GEN-LAST:event_userTableMouseClicked
 
     /**
      * @param args the command line arguments
