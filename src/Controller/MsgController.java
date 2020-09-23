@@ -25,9 +25,9 @@ public class MsgController {
         con.aud("INSERT INTO msg(hash,previousHash,timeStamp,sender_id,recever_id,content) values ('" + data.getHash() + "','" + data.getPreviousHash() + "','" + data.getTimeStamp() + "','" + data.getSender_id() + "','" + data.getRecever_id() + "','" + data.getContent() + "') ");
     }
 
-    public void Update(Msg data) throws Exception {
+    public void Update(int id ,String data) throws Exception {
         con.getConnection();
-        con.aud("UPDATE msg SET hash  = '" + data.getHash() + "',previousHash  = '" + data.getPreviousHash() + "',timeStamp  = '" + data.getTimeStamp() + "',sender_id  = '" + data.getSender_id() + "',recever_id  = '" + data.getRecever_id() + "',content  = '" + data.getContent() + "' WHERE id = '" + data.getId() + "'");
+        con.aud("UPDATE msg SET content  = '" + data + "' WHERE id = '" + id + "'");
     }
 
     public void Delete(Msg data) throws Exception {
