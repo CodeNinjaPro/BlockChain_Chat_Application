@@ -31,13 +31,11 @@ public class PassCode extends javax.swing.JFrame {
     public PassCode() {
         initComponents();
         loadPassword();
-        setpasswordtobtn(6);
+        setpasswordtobtn();
     }
 
     private void loadPassword() {
-        userPassCode = "123456";
-
-//        userPassCode = LoginModel.getInstance().getPassword();
+        userPassCode = LoginModel.getInstance().getPassword();
         randomPasscode = userPassCode.toCharArray();
         char arr[] = userPassCode.toCharArray();
         for (int i = 0; i < 6; i++) {
@@ -46,38 +44,64 @@ public class PassCode extends javax.swing.JFrame {
 
     }
 
-    private void setpasswordtobtn(int x) {
-        int temp = x;
+    private void setpasswordtobtn() {
+        int temp;
+
+        if (password.size() == 1) {
+            temp = 0;
+        } else {
+            temp = password.size() - 1;
+        }
         if (b1.isEnabled()) {
-            System.out.println("b1");
-            b1.setText(password.remove(ThreadLocalRandom.current().nextInt(1, (x - 1) + 1)) + "");
-            temp--;
+            System.out.println("pass");
+            b1.setText(password.remove(ThreadLocalRandom.current().nextInt(0, temp + 1)) + "");
+        }
+        if (password.size() == 1) {
+            temp = 0;
+        } else {
+            temp = password.size() - 1;
         }
         if (b2.isEnabled()) {
-            System.out.println("b2");
-            b2.setText(password.remove(ThreadLocalRandom.current().nextInt(1, (x - 2) + 1)) + "");
-            temp--;
+            System.out.println("pass");
+            b2.setText(password.remove(ThreadLocalRandom.current().nextInt(0, temp + 1)) + "");
+        }
+        if (password.size() == 1) {
+            temp = 0;
+        } else {
+            temp = password.size() - 1;
         }
         if (b3.isEnabled()) {
-            System.out.println("b3");
-            b3.setText(password.remove(ThreadLocalRandom.current().nextInt(1, (x - 3) + 1)) + "");
-            temp--;
+            System.out.println("pass");
+            b3.setText(password.remove(ThreadLocalRandom.current().nextInt(0, temp + 1)) + "");
+        }
+        if (password.size() == 1) {
+            temp = 0;
+        } else {
+            temp = password.size() - 1;
         }
         if (b4.isEnabled()) {
-            System.out.println("b4");
-            b4.setText(password.remove(ThreadLocalRandom.current().nextInt(1, (x - 4) + 1)) + "");
-            temp--;
+            System.out.println("pass");
+            b4.setText(password.remove(ThreadLocalRandom.current().nextInt(0, temp + 1)) + "");
+        }
+        if (password.size() == 1) {
+            temp = 0;
+        } else {
+            temp = password.size() - 1;
         }
         if (b5.isEnabled()) {
-            System.out.println("b5");
-            b5.setText(password.remove(ThreadLocalRandom.current().nextInt(1, (x - 5) + 1)) + "");
-            temp--;
+            System.out.println("pass");
+            b5.setText(password.remove(ThreadLocalRandom.current().nextInt(0, temp + 1)) + "");
+        }
+        if (password.size() == 1) {
+            temp = 0;
+        } else {
+            temp = password.size() - 1;
         }
         if (b6.isEnabled()) {
-            System.out.println("b6");
-            b6.setText(password.get(0) + "");
-            temp--;
+            System.out.println(temp);
+            b6.setText(password.remove(ThreadLocalRandom.current().nextInt(0, temp + 1)) + "");
         }
+        System.out.println("end");
 
     }
 
@@ -105,7 +129,7 @@ public class PassCode extends javax.swing.JFrame {
         for (int i = 0; i < randomPasscode.length; i++) {
             password.add(Integer.parseInt(randomPasscode[i] + ""));
         }
-        setpasswordtobtn(randomPasscode.length);
+
     }
 
     private void passcodeClick(String num) throws Exception {
@@ -120,6 +144,7 @@ public class PassCode extends javax.swing.JFrame {
             }
         } else {
             randomChange(num);
+            setpasswordtobtn();
         }
     }
 
