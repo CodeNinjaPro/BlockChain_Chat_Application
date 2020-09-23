@@ -48,4 +48,10 @@ public class Block {
         }
         System.out.println("Block Mined!!! : " + hash);
     }
+
+    public String getHash() {
+        return hash;
+    }
+    
+    
 }

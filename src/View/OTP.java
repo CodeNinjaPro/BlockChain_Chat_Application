@@ -21,6 +21,20 @@ public class OTP extends javax.swing.JFrame {
     public OTP(String otp) {
         this.otp = otp;
         initComponents();
+
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+            @Override
+            public void run() {
+                changeOtp();
+            }
+        },
+                180000 //3 minites
+        );
+    }
+
+    private void changeOtp() {
+        otp = "sdfaunvim92#5va5df2sd3#8nksdnf";
     }
 
     private OTP() {

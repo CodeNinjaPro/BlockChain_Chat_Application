@@ -5,6 +5,7 @@
  */
 package View;
 
+import BlockChain.Block;
 import Controller.MsgController;
 import Controller.UserController;
 import Email.JavaEmail;
@@ -49,6 +50,9 @@ public class Home extends javax.swing.JFrame {
         loadHistory();
         loadUsers();
         loggedUser.setText(LoginModel.getInstance().getUser_fullname());
+        if (LoginModel.getInstance().getUsertype().equals("User")) {
+            TabbedPane.setEnabledAt(2, false);
+        }
     }
 
     void showDate() {
@@ -122,7 +126,9 @@ public class Home extends javax.swing.JFrame {
 
             Msg obj = details.get(i);
 
-            v.add(obj.getTimestamp());
+            v.add(obj.getHash());
+            v.add(obj.getPreviousHash());
+            v.add(obj.getTimeStamp());
             v.add(obj.getSender_id());
             v.add(obj.getRecever_id());
             v.add(obj.getContent());
@@ -175,7 +181,7 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        TabbedPane = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         membersTable = new javax.swing.JTable();
@@ -199,7 +205,6 @@ public class Home extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         admin_full_name = new javax.swing.JTextField();
-        user_type = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         admin_username = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -213,12 +218,17 @@ public class Home extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        user_type = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat Application");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        membersTable.setBackground(new java.awt.Color(255, 255, 255));
+        membersTable.setForeground(new java.awt.Color(0, 0, 0));
         membersTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -234,24 +244,32 @@ public class Home extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(membersTable);
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("All Members");
 
+        search.setBackground(new java.awt.Color(255, 255, 255));
+        search.setForeground(new java.awt.Color(0, 0, 0));
         search.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 searchKeyReleased(evt);
             }
         });
 
+        textarea.setBackground(new java.awt.Color(255, 255, 255));
         textarea.setColumns(20);
         textarea.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        textarea.setForeground(new java.awt.Color(0, 0, 0));
         textarea.setRows(5);
         textarea.setEnabled(false);
         jScrollPane3.setViewportView(textarea);
 
         send.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
+        jButton1.setBackground(new java.awt.Color(102, 102, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Send");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,15 +277,23 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        date.setBackground(new java.awt.Color(255, 255, 255));
+        date.setForeground(new java.awt.Color(0, 0, 0));
         date.setText("Datte");
 
+        time.setBackground(new java.awt.Color(255, 255, 255));
+        time.setForeground(new java.awt.Color(0, 0, 0));
         time.setText("Time");
 
+        loggedUser.setBackground(new java.awt.Color(255, 255, 255));
+        loggedUser.setForeground(new java.awt.Color(0, 0, 0));
         loggedUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         loggedUser.setText("User");
 
         jLabel3.setText("Current Chat member :");
 
+        jButton2.setBackground(new java.awt.Color(102, 102, 255));
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Logout");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,11 +351,10 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                            .addComponent(jLabel3))
-                        .addComponent(user_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
+                    .addComponent(user_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -342,14 +367,16 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Chat", jPanel2);
+        TabbedPane.addTab("Chat", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         history.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Timestamp", "Sender", "Reciver", "Message"
+                "Hash", "Previous Hash", "Timestamp", "Sender", "Reciver", "Message"
             }
         ));
         jScrollPane1.setViewportView(history);
@@ -371,7 +398,9 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("History", jPanel3);
+        TabbedPane.addTab("History", jPanel3);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -383,23 +412,52 @@ public class Home extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(userTable);
 
+        admin_full_name.setBackground(new java.awt.Color(255, 255, 255));
+        admin_full_name.setForeground(new java.awt.Color(0, 0, 0));
+
+        email.setBackground(new java.awt.Color(255, 255, 255));
+        email.setForeground(new java.awt.Color(0, 0, 0));
+
+        admin_username.setBackground(new java.awt.Color(255, 255, 255));
+        admin_username.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Full Name");
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("User Type");
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Email");
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Username");
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Password");
 
+        password.setBackground(new java.awt.Color(255, 255, 255));
+        password.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("User ID");
 
+        admin_user_id.setText("0");
+        admin_user_id.setEnabled(false);
+
+        jButton3.setBackground(new java.awt.Color(102, 102, 255));
+        jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Save");
 
+        jButton4.setBackground(new java.awt.Color(102, 102, 255));
+        jButton4.setForeground(new java.awt.Color(0, 0, 0));
         jButton4.setText("Update");
 
+        jButton5.setBackground(new java.awt.Color(102, 102, 255));
+        jButton5.setForeground(new java.awt.Color(0, 0, 0));
         jButton5.setText("Delete");
+
+        user_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -418,11 +476,14 @@ public class Home extends javax.swing.JFrame {
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel8))
-                                .addGap(157, 157, 157)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(user_type)
-                                    .addComponent(admin_user_id, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
-                                .addGap(63, 63, 63)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGap(157, 157, 157)
+                                        .addComponent(admin_user_id, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGap(158, 158, 158)
+                                        .addComponent(user_type, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(62, 62, 62)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel5))
@@ -434,24 +495,23 @@ public class Home extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(64, 64, 64)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(61, 61, 61)
-                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(157, 157, 157)
-                                        .addComponent(admin_full_name)
-                                        .addGap(63, 63, 63)
-                                        .addComponent(jLabel7)))
-                                .addGap(396, 396, 396)))))
+                                .addComponent(jLabel2)
+                                .addGap(157, 157, 157)
+                                .addComponent(admin_full_name)
+                                .addGap(63, 63, 63)
+                                .addComponent(jLabel7)
+                                .addGap(396, 396, 396))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(82, 82, 82)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(79, 79, 79)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(344, 344, 344)))))
                 .addContainerGap())
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {admin_full_name, admin_user_id, admin_username, email, password, user_type});
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {admin_full_name, admin_user_id, admin_username, email, password});
 
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,9 +536,9 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(user_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addComponent(user_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -486,19 +546,19 @@ public class Home extends javax.swing.JFrame {
                 .addGap(55, 55, 55))
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {admin_full_name, admin_user_id, admin_username, email, password, user_type});
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {admin_full_name, admin_user_id, admin_username, email, password});
 
-        jTabbedPane1.addTab("Admin Panel", jPanel4);
+        TabbedPane.addTab("Admin Panel", jPanel4);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(TabbedPane)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(TabbedPane)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -536,7 +596,7 @@ public class Home extends javax.swing.JFrame {
             AES aes = AES.getInstance();
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getSender_id() == LoginModel.getInstance().getUser_id()) {
-                    aes.setKey(list.get(i).getTimestamp()+"Krowc4");
+                    aes.setKey(list.get(i).getTimeStamp() + "Krowc4");
                     System.out.println(list.get(i).getContent());
                     String data = aes.decrypt(list.get(i).getContent());
                     System.out.println(data);
@@ -580,7 +640,12 @@ public class Home extends javax.swing.JFrame {
 
                 Msg data = null;
                 try {
-                    data = new Msg(0, Instant.now().getEpochSecond() + "", LoginModel.getInstance().getUser_id(), Integer.parseInt(user_id.getText()), aes.encrypt(send.getText()));
+
+                    Msg msg = MsgController.getInstance().getLast();
+                    Block block = new Block(aes.encrypt(send.getText()), msg.getHash(), LoginModel.getInstance().getUser_id(), Integer.parseInt(user_id.getText()));
+
+                    data = new Msg(0, block.getHash(), msg.getHash(), Instant.now().getEpochSecond() + "", LoginModel.getInstance().getUser_id(), Integer.parseInt(user_id.getText()), aes.encrypt(send.getText()));
+
                 } catch (Exception ex) {
                     Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -592,6 +657,12 @@ public class Home extends javax.swing.JFrame {
                 }
             }
 
+        }
+
+        try {
+            loadHistory();
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -650,6 +721,7 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane TabbedPane;
     private javax.swing.JTextField admin_full_name;
     private javax.swing.JTextField admin_user_id;
     private javax.swing.JTextField admin_username;
@@ -677,7 +749,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel loggedUser;
     private javax.swing.JTable membersTable;
     private javax.swing.JTextField password;
@@ -687,7 +758,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel time;
     private javax.swing.JTable userTable;
     private javax.swing.JLabel user_id;
-    private javax.swing.JTextField user_type;
+    private javax.swing.JComboBox<String> user_type;
     private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 }

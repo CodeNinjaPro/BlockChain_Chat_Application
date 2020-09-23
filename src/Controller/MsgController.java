@@ -22,12 +22,12 @@ public class MsgController {
 
     public void Save(Msg data) throws Exception {
         con.getConnection();
-        con.aud("INSERT INTO msg(timestamp,sender_id,recever_id,content) values ('" + data.getTimestamp() + "','" + data.getSender_id() + "','" + data.getRecever_id() + "','" + data.getContent() + "') ");
+        con.aud("INSERT INTO msg(hash,previousHash,timeStamp,sender_id,recever_id,content) values ('" + data.getHash() + "','" + data.getPreviousHash() + "','" + data.getTimeStamp() + "','" + data.getSender_id() + "','" + data.getRecever_id() + "','" + data.getContent() + "') ");
     }
 
     public void Update(Msg data) throws Exception {
         con.getConnection();
-        con.aud("UPDATE msg SET timestamp  = '" + data.getTimestamp() + "',sender_id  = '" + data.getSender_id() + "',recever_id  = '" + data.getRecever_id() + "',content  = '" + data.getContent() + "' WHERE id = '" + data.getId() + "'");
+        con.aud("UPDATE msg SET hash  = '" + data.getHash() + "',previousHash  = '" + data.getPreviousHash() + "',timeStamp  = '" + data.getTimeStamp() + "',sender_id  = '" + data.getSender_id() + "',recever_id  = '" + data.getRecever_id() + "',content  = '" + data.getContent() + "' WHERE id = '" + data.getId() + "'");
     }
 
     public void Delete(Msg data) throws Exception {
@@ -42,10 +42,31 @@ public class MsgController {
         while (rset.next()) {
             Msg obj = new Msg();
             obj.setId(rset.getInt(1));
-            obj.setTimestamp(rset.getString(2));
-            obj.setSender_id(rset.getInt(3));
-            obj.setRecever_id(rset.getInt(4));
-            obj.setContent(rset.getString(5));
+            obj.setHash(rset.getString(2));
+            obj.setPreviousHash(rset.getString(3));
+            obj.setTimeStamp(rset.getString(4));
+            obj.setSender_id(rset.getInt(5));
+            obj.setRecever_id(rset.getInt(6));
+            obj.setContent(rset.getString(7));
+            objList.add(obj);
+        }
+
+        return objList;
+    }
+
+    public List<Msg> Search(Msg data) throws Exception {
+        List<Msg> objList = new ArrayList<Msg>();
+        con.getConnection();
+        ResultSet rset = con.srh("SELECT * FROM msg WHERE id = '" + data.getId() + "'");
+        while (rset.next()) {
+            Msg obj = new Msg();
+            obj.setId(rset.getInt(1));
+            obj.setHash(rset.getString(2));
+            obj.setPreviousHash(rset.getString(3));
+            obj.setTimeStamp(rset.getString(4));
+            obj.setSender_id(rset.getInt(5));
+            obj.setRecever_id(rset.getInt(6));
+            obj.setContent(rset.getString(7));
             objList.add(obj);
         }
 
@@ -59,14 +80,35 @@ public class MsgController {
         while (rset.next()) {
             Msg obj = new Msg();
             obj.setId(rset.getInt(1));
-            obj.setTimestamp(rset.getString(2));
-            obj.setSender_id(rset.getInt(3));
-            obj.setRecever_id(rset.getInt(4));
-            obj.setContent(rset.getString(5));
+            obj.setHash(rset.getString(2));
+            obj.setPreviousHash(rset.getString(3));
+            obj.setTimeStamp(rset.getString(4));
+            obj.setSender_id(rset.getInt(5));
+            obj.setRecever_id(rset.getInt(6));
+            obj.setContent(rset.getString(7));
             objList.add(obj);
         }
 
         return objList;
+    }
+
+    public Msg getLast() throws Exception {
+
+        con.getConnection();
+        Msg obj = new Msg();
+        ResultSet rset = con.srh("SELECT * FROM msg ORDER BY id DESC LIMIT 1");
+        if (rset.next()) {
+            obj.setId(rset.getInt(1));
+            obj.setHash(rset.getString(2));
+            obj.setPreviousHash(rset.getString(3));
+            obj.setTimeStamp(rset.getString(4));
+            obj.setSender_id(rset.getInt(5));
+            obj.setRecever_id(rset.getInt(6));
+            obj.setContent(rset.getString(7));
+        }
+
+        return obj;
+
     }
 
 }

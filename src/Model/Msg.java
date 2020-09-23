@@ -4,7 +4,9 @@ package Model;
 public class Msg {
 
     private int id;
-    private String timestamp;
+    private String hash;
+    private String previousHash;
+    private String timeStamp;
     private int sender_id;
     private int recever_id;
     private String content;
@@ -16,9 +18,11 @@ public class Msg {
         this.id = id;
     }
 
-    public Msg(int id, String timestamp, int sender_id, int recever_id, String content) {
+    public Msg(int id, String hash, String previousHash, String timeStamp, int sender_id, int recever_id, String content) {
         this.id = id;
-        this.timestamp = timestamp;
+        this.hash = hash;
+        this.previousHash = previousHash;
+        this.timeStamp = timeStamp;
         this.sender_id = sender_id;
         this.recever_id = recever_id;
         this.content = content;
@@ -32,12 +36,28 @@ public class Msg {
         this.id = id;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getHash() {
+        return hash;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public String getPreviousHash() {
+        return previousHash;
+    }
+
+    public void setPreviousHash(String previousHash) {
+        this.previousHash = previousHash;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public int getSender_id() {

@@ -23,6 +23,7 @@ public class PassCode extends javax.swing.JFrame {
 
     private String passCode = "";
     private String userPassCode = "";
+    private char[] randomPasscode;
 
     /**
      * Creates new form PassCode
@@ -30,12 +31,14 @@ public class PassCode extends javax.swing.JFrame {
     public PassCode() {
         initComponents();
         loadPassword();
-        setpasswordtobtn();
+        setpasswordtobtn(6);
     }
 
     private void loadPassword() {
+        userPassCode = "123456";
 
-        userPassCode = LoginModel.getInstance().getPassword();
+//        userPassCode = LoginModel.getInstance().getPassword();
+        randomPasscode = userPassCode.toCharArray();
         char arr[] = userPassCode.toCharArray();
         for (int i = 0; i < 6; i++) {
             password.add(Integer.parseInt(arr[i] + ""));
@@ -43,15 +46,66 @@ public class PassCode extends javax.swing.JFrame {
 
     }
 
-    private void setpasswordtobtn() {
+    private void setpasswordtobtn(int x) {
+        int temp = x;
+        if (b1.isEnabled()) {
+            System.out.println("b1");
+            b1.setText(password.remove(ThreadLocalRandom.current().nextInt(1, (x - 1) + 1)) + "");
+            temp--;
+        }
+        if (b2.isEnabled()) {
+            System.out.println("b2");
+            b2.setText(password.remove(ThreadLocalRandom.current().nextInt(1, (x - 2) + 1)) + "");
+            temp--;
+        }
+        if (b3.isEnabled()) {
+            System.out.println("b3");
+            b3.setText(password.remove(ThreadLocalRandom.current().nextInt(1, (x - 3) + 1)) + "");
+            temp--;
+        }
+        if (b4.isEnabled()) {
+            System.out.println("b4");
+            b4.setText(password.remove(ThreadLocalRandom.current().nextInt(1, (x - 4) + 1)) + "");
+            temp--;
+        }
+        if (b5.isEnabled()) {
+            System.out.println("b5");
+            b5.setText(password.remove(ThreadLocalRandom.current().nextInt(1, (x - 5) + 1)) + "");
+            temp--;
+        }
+        if (b6.isEnabled()) {
+            System.out.println("b6");
+            b6.setText(password.get(0) + "");
+            temp--;
+        }
 
-        b1.setText(password.remove(ThreadLocalRandom.current().nextInt(1, 5 + 1)) + "");
-        b2.setText(password.remove(ThreadLocalRandom.current().nextInt(1, 4 + 1)) + "");
-        b3.setText(password.remove(ThreadLocalRandom.current().nextInt(1, 3 + 1)) + "");
-        b4.setText(password.remove(ThreadLocalRandom.current().nextInt(1, 2 + 1)) + "");
-        b5.setText(password.remove(ThreadLocalRandom.current().nextInt(1, 1 + 1)) + "");
-        b6.setText(password.get(0) + "");
+    }
 
+    private void randomChange(String num) {
+
+        for (int i = 0; i < randomPasscode.length; i++) {
+            if ((randomPasscode[i] + "").equals(num)) {
+                setnewarray(randomPasscode, i);
+            }
+        }
+    }
+
+    private void setnewarray(char[] original, int location_to_remove) {
+        char[] result = new char[original.length - 1];
+        int last_insert = 0;
+        for (int i = 0; i < original.length; i++) {
+            if (i == location_to_remove) {
+                i++;
+            }
+
+            result[last_insert++] = original[i];
+        }
+        randomPasscode = result;
+        password.removeAll(password);
+        for (int i = 0; i < randomPasscode.length; i++) {
+            password.add(Integer.parseInt(randomPasscode[i] + ""));
+        }
+        setpasswordtobtn(randomPasscode.length);
     }
 
     private void passcodeClick(String num) throws Exception {
@@ -64,6 +118,8 @@ public class PassCode extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Passcode Invalid!!!");
             }
+        } else {
+            randomChange(num);
         }
     }
 
