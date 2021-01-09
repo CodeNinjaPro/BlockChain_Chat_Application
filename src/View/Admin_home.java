@@ -1543,7 +1543,8 @@ public class Admin_home extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Admin_home.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Out put file downloaded to " + dir);
+        
+        JOptionPane.showMessageDialog(this, "Out put file downloaded to " + dir);
     }//GEN-LAST:event_jButton18ActionPerformed
 
     /**
