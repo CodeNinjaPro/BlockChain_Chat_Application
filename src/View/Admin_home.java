@@ -75,6 +75,7 @@ public class Admin_home extends javax.swing.JFrame {
     }
 
     private void loadSmartPolicyTable() {
+        loadPolicyIDs();
 
         List<Smart_contract_policy> details = null;
         try {
@@ -129,6 +130,7 @@ public class Admin_home extends javax.swing.JFrame {
     }
 
     private void loadDlpPolicyTable() {
+        loadDLPPolicyIDs();
 
         List<Dlp_policy> details = null;
         try {
@@ -179,10 +181,11 @@ public class Admin_home extends javax.swing.JFrame {
 
             but_dt.addRow(v);
 
-        }
+        }        
     }
 
     public void loadPolicyIDs() {
+        smart_policy_id.removeAllItems();
         List<Smart_contract_policy> details = null;
         try {
             details = Smart_contract_policyController.getInstance().SearchAll();
@@ -197,6 +200,7 @@ public class Admin_home extends javax.swing.JFrame {
     }
 
     public void loadDLPPolicyIDs() {
+        dlp_policy_id.removeAllItems();
         List<Dlp_policy> details = null;
         try {
             details = Dlp_policyController.getInstance().SearchAll();
@@ -1535,7 +1539,7 @@ public class Admin_home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-  
+
         String dir = System.getProperty("user.dir") + "\\src\\FbProphet\\";
         String command = "python /c start python " + dir + "week.py";
         try {
@@ -1543,8 +1547,11 @@ public class Admin_home extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Admin_home.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         JOptionPane.showMessageDialog(this, "Out put file downloaded to " + dir);
+        
+        Report r = new Report();
+        r.setVisible(true);
     }//GEN-LAST:event_jButton18ActionPerformed
 
     /**

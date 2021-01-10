@@ -152,13 +152,11 @@ public class Login extends javax.swing.JFrame {
                 }
 
                 JOptionPane.showMessageDialog(null, "Email has been sent");
+                
 
                 OTP otp = new OTP(otp_value);
                 otp.setVisible(true);
                 this.dispose();
-
-//                    Home obj = new Home();
-//                    obj.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Username not valid");
             }

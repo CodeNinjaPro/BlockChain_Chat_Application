@@ -5,6 +5,7 @@
  */
 package View;
 
+import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,12 +16,13 @@ public class OTP extends javax.swing.JFrame {
 
     private String otp;
 
-    /**
-     * Creates new form OTP
-     */
+    private String[] arr = {"W68HP", "smwm", "fdamc", "qGphJ"};
+    private int randomNum = ThreadLocalRandom.current().nextInt(1, 5);
+
     public OTP(String otp) {
         this.otp = otp;
         initComponents();
+        capt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/" + randomNum + ".png")));
 
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
@@ -54,10 +56,16 @@ public class OTP extends javax.swing.JFrame {
         otp_value = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        capt = new javax.swing.JLabel();
+        cap = new javax.swing.JTextField();
+        human = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("OTP");
+        setPreferredSize(new java.awt.Dimension(550, 330));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(550, 330));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -81,42 +89,76 @@ public class OTP extends javax.swing.JFrame {
             }
         });
 
+        capt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/1.png"))); // NOI18N
+
+        cap.setBackground(new java.awt.Color(255, 255, 255));
+        cap.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cap.setForeground(new java.awt.Color(0, 0, 0));
+        cap.setToolTipText("Username");
+        cap.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                capKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                capKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                capKeyTyped(evt);
+            }
+        });
+
+        human.setText("Human");
+        human.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(84, 84, 84)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(otp_value)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(capt, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(24, 24, 24)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(human)
+                                .addComponent(cap)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(otp_value)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(otp_value, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(capt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(human)
+                .addGap(30, 30, 30)
                 .addComponent(jButton1)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -125,13 +167,42 @@ public class OTP extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (otp.equals(otp_value.getText())) {
-            PassCode obj = new PassCode();
-            obj.setVisible(true);
-            this.dispose();
+            if (human.isSelected()) {
+                PassCode obj = new PassCode();
+                obj.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Please Write Captcha Correct");
+            }
+
         } else {
             JOptionPane.showMessageDialog(null, "OTP Code Invalid");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void capKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_capKeyPressed
+        //        if (capt.getText().toString().equals("W68HP")) {
+        //            human.setSelected(true);
+        //        } else {
+        //            human.setSelected(false);
+        //        }
+    }//GEN-LAST:event_capKeyPressed
+
+    private void capKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_capKeyReleased
+        if (cap.getText().toString().equals(arr[randomNum - 1])) {
+            human.setSelected(true);
+        } else {
+            human.setSelected(false);
+        }
+    }//GEN-LAST:event_capKeyReleased
+
+    private void capKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_capKeyTyped
+        //        if (capt.getText().toString().equals("W68HP")) {
+        //            human.setSelected(true);
+        //        }else{
+        //            human.setSelected(false);
+        //        }
+    }//GEN-LAST:event_capKeyTyped
 
     /**
      * @param args the command line arguments
@@ -169,6 +240,9 @@ public class OTP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cap;
+    private javax.swing.JLabel capt;
+    private javax.swing.JCheckBox human;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
